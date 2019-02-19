@@ -71,7 +71,7 @@ public static void main(String[] args) {
                 });
 
 
-        get("/logout", (request, response)->{
+        get("/end", (request, response)->{
                         request.session().removeAttribute("rangerName");
                         response.redirect("/");
                         return null;
