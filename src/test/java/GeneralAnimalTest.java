@@ -4,55 +4,55 @@ import java.util.ArrayList;
 import java.util.List;
 import org.sql2o.*;
 
-public class RegularAnimalTest{
-  RegularAnimal testRegularAnimal;
+public class GeneralAnimalTest{
+  GeneralAnimal testGeneralAnimal;
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
   @Before
   public void setUp(){
-    testRegularAnimal = new RegularAnimal("sloth", "sloth");
+    testRegularAnimal = new GeneralAnimal("sloth", "sloth");
   }
 
   @Test
   public void animals_instantiatesCorrectly_true() {
-    assertTrue(testRegularAnimal instanceof RegularAnimal);
+    assertTrue(testGeneralAnimal instanceof GeneralAnimal);
   }
 
   @Test
   public void name_instantiatesCorrectly_true() {
-    assertEquals("sloth", testRegularAnimal.getName());
+    assertEquals("sloth", testGeneralAnimal.getName());
   }
 
   @Test
   public void species_instantiatesCorrectly_true() {
-    assertEquals("sloth", testRegularAnimal.getSpecies());
+    assertEquals("sloth", testGeneralAnimal.getSpecies());
   }
 
   @Test
   public void equals_returnsTrueIfPropertiesAreSame_true(){
-    RegularAnimal testRegularAnimal2 = new RegularAnimal("sloth", "sloth");
-    assertTrue(testRegularAnimal.equals(testRegularAnimal2));
+    GeneralAnimal testGeneralAnimal2 = new GeneralAnimal("sloth", "sloth");
+    assertTrue(testGeneralAnimal.equals(testGeneralAnimal2));
   }
 
   @Test
-  public void save_insertsRegularAnimalIntoDatabase_RegularAnimal() {
-    testRegularAnimal.save();
-    RegularAnimal testRegularAnimal2 = null;
+  public void save_insertsGeneralAnimalIntoDatabase_GeneralAnimal() {
+    testGeneralAnimal.save();
+    GeneralAnimal testGeneralAnimal2 = null;
     try(Connection con = DB.sql2o.open()){
       testRegularAnimal2 = con.createQuery("SELECT * FROM animals WHERE name='sloth'").throwOnMappingFailure(false)
-      .executeAndFetchFirst(RegularAnimal.class);
+      .executeAndFetchFirst(GeneralAnimal.class);
     }
-    assertTrue(testRegularAnimal2.equals(testRegularAnimal));
+    assertTrue(testGeneralAnimal2.equals(testGeneralAnimal));
   }
 
   @Test
   public void all_returnsAllInstancesOfPerson_true() {
-    testRegularAnimal.save();
-    RegularAnimal testRegularAnimal2 = new RegularAnimal("bitey", "squirrel");
-    testRegularAnimal2.save();
-    assertEquals(true, RegularAnimal.all().get(0).equals(testRegularAnimal));
-    assertEquals(true, RegularAnimal.all().get(1).equals(testRegularAnimal2));
+    testGeneralAnimal.save();
+    GeneralAnimal testGeneralAnimal2 = new GeneralAnimal("bitey", "squirrel");
+    testGeneralAnimal2.save();
+    assertEquals(true, GeneralAnimal.all().get(0).equals(testGeneralAnimal));
+    assertEquals(true, GeneralAnimal.all().get(1).equals(testGeneralAnimal2));
   }
 
   @Test
