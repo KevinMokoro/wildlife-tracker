@@ -4,13 +4,15 @@ h1{
   font-weight: bolder;
 
 
+
 }
 p{
   font-size: 28px;
 }
 h2{
   font-size: 37px;
+  font-style: italic;
 }
 body{
-  background-color: #51c1bc;
+  background-color: #56666b;
 }
