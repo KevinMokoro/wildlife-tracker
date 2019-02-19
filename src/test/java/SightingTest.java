@@ -118,19 +118,19 @@ public class SightingTest{
   @Test
   public void addAnimal_addsGeneralAnimalToSighting(){
     testSighting.save();
-    RegularAnimal testGeneralAnimal = new GeneralAnimal("scratchy","sloth");
+    GeneralAnimal testGeneralAnimal = new GeneralAnimal("scratchy","sloth");
     testGeneralAnimal.save();
     testSighting.addAnimal(testRegularAnimal);
-    RegularAnimal  savedGeneralAnimal = testSighting.getGeneralAnimals().get(0);
+    GeneralAnimal  savedGeneralAnimal = testSighting.getGeneralAnimals().get(0);
     assertTrue(testGeneralAnimal.equals(savedGeneralAnimal));
   }
 
   @Test
-  public void getRegularAnimals_returnsAllGeneralAnimals_int(){
+  public void getGeneralAnimals_returnsAllGeneralAnimals_int(){
     testSighting.save();
-    RegularAnimal testRegularAnimal = new GeneralAnimal("scratchy","sloth");
+    GeneralAnimal testGeneralAnimal = new GeneralAnimal("scratchy","sloth");
     testGeneralAnimal.save();
-    testSighting.addAnimal(testRegularAnimal);
+    testSighting.addAnimal(testGeneralAnimal);
     List savedAnimals = testSighting.getGeneralAnimals();
     assertEquals(1, savedAnimals.size());
     assertTrue(savedAnimals.contains(testEndangeredAnimal));
