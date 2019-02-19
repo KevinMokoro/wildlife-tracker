@@ -65,7 +65,7 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //Log in
+        
         post("/", (request, response)->{
                         String rangerName = request.queryParams("rangerName");
                         request.session().attribute("rangerName", rangerName);
@@ -73,7 +73,7 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //Log out
+
         get("/logout", (request, response)->{
                         request.session().removeAttribute("rangerName");
                         response.redirect("/");
