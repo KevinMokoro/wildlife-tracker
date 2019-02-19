@@ -9,8 +9,6 @@ public static void main(String[] args) {
         ProcessBuilder process = new ProcessBuilder();
         Integer port;
 
-        // This tells our app that if Heroku sets a port for us, we need to use that port.
-        // Otherwise, if they do not, continue using port 4567.
 
         if (process.environment().get("PORT") != null) {
                 port = Integer.parseInt(process.environment().get("PORT"));
@@ -23,7 +21,7 @@ public static void main(String[] args) {
         staticFileLocation("/public");
         String layout = "templates/layout.vtl";
 
-        //before filters
+
         before("/sightings/*", (request, response)->{
                         String rangerName= request.session().attribute("rangerName");
                         if(rangerName==null) {
@@ -56,7 +54,6 @@ public static void main(String[] args) {
                         }
                 });
 
-        //Index page
         get("/", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         model.put("rangerName", request.session().attribute("rangerName"));
@@ -65,7 +62,7 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        
+
         post("/", (request, response)->{
                         String rangerName = request.queryParams("rangerName");
                         request.session().attribute("rangerName", rangerName);
@@ -80,7 +77,6 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //Animal list
         get("/animals", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         model.put("rangerName", request.session().attribute("rangerName"));
@@ -90,7 +86,6 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //New animal form
         get("/animals/new", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         model.put("HEALTH_HEALTHY", EndangeredAnimal.HEALTH_HEALTHY);
@@ -104,7 +99,7 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //Add new animal - redirects to animal list
+
         post("/animals/new", (request, response)->{
                         String name = request.queryParams("name");
                         String species = request.queryParams("species");
@@ -122,7 +117,6 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //individual common(regular) animal pages
         get("/animals/endangered/:id", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         EndangeredAnimal animal = EndangeredAnimal.find(Integer.parseInt(request.params("id")));
@@ -132,7 +126,6 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //delete endangered animal
         post("/animals/endangered/:id/delete", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         EndangeredAnimal animal = EndangeredAnimal.find(Integer.parseInt(request.params("id")));
@@ -141,7 +134,7 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //individual common(regular) animal pages
+
         get("/animals/:id", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         GeneralAnimal animal = GeneralAnimal.find(Integer.parseInt(request.params("id")));
@@ -151,7 +144,6 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //delete common animals
         post("/animals/:id/delete", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         GeneralAnimal animal = GeneralAnimal.find(Integer.parseInt(request.params("id")));
@@ -160,7 +152,7 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //all sightings
+
         get("/sightings", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         model.put("rangerName", request.session().attribute("rangerName"));
@@ -169,7 +161,6 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //new sighting form
         get("/sightings/new", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         model.put("rangerName", request.session().attribute("rangerName"));
@@ -177,7 +168,6 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //Add new sighting - redirects to sightings list
         post("/sightings/new", (request, response)->{
                         String rangerName = request.session().attribute("rangerName");
                         String location = request.queryParams("location");
@@ -200,7 +190,7 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //individual common(regular) animal pages
+
         get("/sightings/:id", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         Sighting sighting = Sighting.find(Integer.parseInt(request.params("id")));
@@ -210,7 +200,7 @@ public static void main(String[] args) {
                         return new ModelAndView(model, layout);
                 }, new VelocityTemplateEngine());
 
-        //delete sighting
+
         post("/sightings/:id/delete", (request, response)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         Sighting sighting = Sighting.find(Integer.parseInt(request.params("id")));
@@ -219,7 +209,6 @@ public static void main(String[] args) {
                         return null;
                 });
 
-        //exception handling
         exception(NullPointerException.class, (exc, request, response)->{
                         response.status(500);
                         VelocityTemplateEngine engine = new VelocityTemplateEngine();
