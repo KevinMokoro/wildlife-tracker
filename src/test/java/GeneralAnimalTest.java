@@ -11,7 +11,7 @@ public class GeneralAnimalTest{
 
   @Before
   public void setUp(){
-    testRegularAnimal = new GeneralAnimal("sloth", "sloth");
+    testGeneralAnimal = new GeneralAnimal("sloth", "sloth");
   }
 
   @Test
@@ -40,7 +40,7 @@ public class GeneralAnimalTest{
     testGeneralAnimal.save();
     GeneralAnimal testGeneralAnimal2 = null;
     try(Connection con = DB.sql2o.open()){
-      testRegularAnimal2 = con.createQuery("SELECT * FROM animals WHERE name='sloth'").throwOnMappingFailure(false)
+      testGeneralAnimal2 = con.createQuery("SELECT * FROM animals WHERE name='sloth'").throwOnMappingFailure(false)
       .executeAndFetchFirst(GeneralAnimal.class);
     }
     assertTrue(testGeneralAnimal2.equals(testGeneralAnimal));
@@ -56,57 +56,57 @@ public class GeneralAnimalTest{
   }
 
   @Test
-  public void save_assignsIdToRegularAnimal() {
-    testRegularAnimal.save();
-    RegularAnimal testRegularAnimal2 = RegularAnimal.all().get(0);
-    assertEquals(testRegularAnimal.getId(), testRegularAnimal2.getId());
+  public void save_assignsIdToGeneralAnimal() {
+    testGeneralAnimal.save();
+    GeneralAnimal testGeneralAnimal2 = GeneralAnimal.all().get(0);
+    assertEquals(testGeneralAnimal.getId(), testGeneralAnimal2.getId());
   }
 
   @Test
-  public void find_returnsRegularAnimalWithSameId_secondRegularAnimal() {
-    testRegularAnimal.save();
-    RegularAnimal testRegularAnimal2 = new RegularAnimal("bitey", "squirrel");
-    testRegularAnimal2.save();
-    assertEquals(RegularAnimal.find(testRegularAnimal2.getId()), testRegularAnimal2);
+  public void find_returnsGeneralAnimalWithSameId_secondGeneralAnimal() {
+    testGeneralAnimal.save();
+    GeneralAnimal testGeneralAnimal2 = new GeneralAnimal("bitey", "squirrel");
+    testGeneralAnimal2.save();
+    assertEquals(GeneralAnimal.find(testGeneralAnimal2.getId()), testGeneralAnimal2);
   }
 
   @Test(expected=IndexOutOfBoundsException.class)
   public void find_throwsExceptionIfAnimalNotFound() {
-    RegularAnimal.find(1);
+    GeneralAnimal.find(1);
   }
 
   @Test
-  public void findbyName_returnsRegularAnimalWithSameName_secondRegularAnimal() {
-    testRegularAnimal.save();
-    RegularAnimal testRegularAnimal2 = new RegularAnimal("bitey", "squirrel");
-    testRegularAnimal2.save();
-    assertEquals(RegularAnimal.findByName(testRegularAnimal2.getName()), testRegularAnimal2);
+  public void findbyName_returnsGeneralAnimalWithSameName_secondGeneralAnimal() {
+    testGeneralAnimal.save();
+    GeneralAnimal testGeneralAnimal2 = new GeneralAnimal("bitey", "squirrel");
+    testGeneralAnimal2.save();
+    assertEquals(GeneralAnimal.findByName(testGeneralAnimal2.getName()), testGeneralAnimal2);
   }
 
   @Test
   public void delete_deletesEntryInDatabase_0(){
-    testRegularAnimal.save();
-    testRegularAnimal.delete();
-    assertEquals(0, RegularAnimal.all().size());
+    testGeneralAnimal.save();
+    testGeneralAnimal.delete();
+    assertEquals(0, GeneralAnimal.all().size());
   }
 
   @Test
   public void delete_deletesSightingAssociations(){
-    testRegularAnimal.save();
+    testGeneralAnimal.save();
     Sighting sighting = new Sighting("here", "Steve");
     sighting.save();
-    sighting.addAnimal(testRegularAnimal);
-    testRegularAnimal.delete();
-    assertEquals(0, sighting.getRegularAnimals().size());
+    sighting.addAnimal(testGeneralAnimal);
+    testGeneralAnimal.delete();
+    assertEquals(0, sighting.getGeneralAnimals().size());
   }
 
   @Test
   public void getSightings_returnsAllSightings_int(){
-    testRegularAnimal.save();
+    testGeneralAnimal.save();
     Sighting testSighting = new Sighting("Here", "Steve");
     testSighting.save();
-    testSighting.addAnimal(testRegularAnimal);
-    List savedSightings = testRegularAnimal.getSightings();
+    testSighting.addAnimal(testGeneralAnimal);
+    List savedSightings = testGeneralAnimal.getSightings();
     assertEquals(1, savedSightings.size());
     assertTrue(savedSightings.contains(testSighting));
   }
