@@ -1,0 +1,22 @@
+#if($rangerName)
+  <h2>Hello, $rangerName!</h2>
+  <h3>Recent Sightings</h3>
+  #if($recentSightings.size() > 0)
+    <ul>
+      #foreach($sighting in $recentSightings)
+      <li><a href="/sightings/$sighting.getId()">Ranger: $sighting.getRangerName() at $sighting.getFormattedDate()</a></li>
+      #end
+    </ul>
+  #else
+    <h5>No recent sightings!</h5>
+  #end
+#else
+  <h2>Hello, You have to register with your name!</h2>
+  <form action="/" method="post">
+    <div class="form-group">
+      <label for="rangerName">Enter name:</label>
+      <input type="text" name="rangerName" class="form-control" required>
+    </div>
+    <button type="submit" name="button" class="btn btn-primary">ADD YOUR NAME</button>
+  </form>
+#end

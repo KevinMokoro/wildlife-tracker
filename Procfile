@@ -1,1 +1,1 @@
-web: ./build/install/Salon/bin/Salon
+web: ./build/install/Salon/bin/Wildlife-Tracker

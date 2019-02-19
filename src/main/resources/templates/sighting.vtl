@@ -1,0 +1,37 @@
+<h2>$sighting.getFormattedDate()</h2>
+
+<h4>Location: $sighting.getLocation()</h4>
+<h4>Ranger: $sighting.getRangerName()</h4>
+
+<form class = "manage" action="/sightings/$sighting.getId()/delete" method="post">
+  <button type = "submit" class="btn btn-danger">Delete sighting</button>
+  <a href= "/sightings/$sighting.getId()/update" class="btn btn-success">Update sighting</a>
+</form>
+
+<h3>Animals Sighted</h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Endangered</h4>
+    #if($sighting.getEndangeredAnimals().size() > 0)
+    <ul>
+    #foreach($animal in $sighting.getEndangeredAnimals())
+      <li><a href="/animals/endangered/$animal.getId()">$animal.getName() the $animal.getSpecies()</a></li>
+    #end
+    </ul>
+    #else
+    <h5>No endangered animals sighted</h5>
+    #end
+  </div>
+  <div class="col-sm-6">
+    <h4>Common</h4>
+    #if($sighting.getRegularAnimals().size() > 0)
+    <ul>
+    #foreach($common_animal in $sighting.getRegularAnimals())
+      <li><a href="/animals/$common_animal.getId()">$common_animal.getName() the $common_animal.getSpecies()</a></li>
+    #end
+    </ul>
+    #else
+    <h5>No common animals sighted</h5>
+    #end
+  </div>
+</div>

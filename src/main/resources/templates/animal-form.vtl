@@ -1,0 +1,30 @@
+<h3>Add Animal</h3>
+<form action="/animals/new" method="post">
+  <div class="form-group">
+    <label for="name">Name the animal: </label>
+    <input type="text" name="name" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="species">Species: </label>
+    <input type="text" name="species" class="form-control" required>
+  </div>
+  <input type="checkbox" name="endangered" value="yes">
+  <label for="species">Endangered?</label>
+  <div class="form-group reveal-if-active">
+    <label for="health">Health (as far you can tell)</label>
+    <select class="form-control" name="health">
+      <option>$HEALTH_HEALTHY</option>
+      <option>$HEALTH_OK</option>
+      <option>$HEALTH_ILL</option>
+    </select>
+  </div>
+  <div class="form-group reveal-if-active">
+    <label for="age">Age (as far you can tell)</label>
+    <select class="form-control" name="age">
+      <option>$AGE_BABBY</option>
+      <option>$AGE_YOUNG</option>
+      <option>$AGE_ADULT</option>
+    </select>
+  </div>
+  <button type="submit" name="button" class="btn btn-primary">Add Animal</button>
+</form>
