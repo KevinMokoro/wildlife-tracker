@@ -108,9 +108,9 @@ public class SightingTest{
   @Test
   public void delete_deletesSightingAssociations(){
     testSighting.save();
-    RegularAnimal testGeneralAnimal = new RegularAnimal("Steve", "bee");
+    GeneralAnimal testGeneralAnimal = new GeneralAnimal("Steve", "bee");
     testGeneralAnimal.save();
-    testSighting.addAnimal(testRegularAnimal);
+    testSighting.addAnimal(testGeneralAnimal);
     testSighting.delete();
     assertEquals(0, testGeneralAnimal.getSightings().size());
   }
