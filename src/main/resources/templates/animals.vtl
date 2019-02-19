@@ -17,10 +17,10 @@
   </div>
   <div class="col-sm-6">
     <h3>Non-Endangered Animals</h3>
-    #if($regular_animals.size() > 0)
+    #if($general_animals.size() > 0)
       <ul>
-        #foreach($regular_animal in $regular_animals)
-          <li><a href="/animals/$regular_animal.getId()">$regular_animal.getName() the $regular_animal.getSpecies()</a></li>
+        #foreach($general_animal in $general_animals)
+          <li><a href="/animals/$general_animal.getId()">$general_animal.getName() the $general_animal.getSpecies()</a></li>
         #end
       </ul>
     #else
