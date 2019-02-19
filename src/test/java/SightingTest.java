@@ -120,7 +120,7 @@ public class SightingTest{
     testSighting.save();
     GeneralAnimal testGeneralAnimal = new GeneralAnimal("scratchy","sloth");
     testGeneralAnimal.save();
-    testSighting.addAnimal(testRegularAnimal);
+    testSighting.addAnimal(testGeneralAnimal);
     GeneralAnimal  savedGeneralAnimal = testSighting.getGeneralAnimals().get(0);
     assertTrue(testGeneralAnimal.equals(savedGeneralAnimal));
   }
